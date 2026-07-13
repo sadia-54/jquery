@@ -27,6 +27,10 @@ function cleanCallback( callback ) {
 	return callback.replace( /[^a-z0-9_]/gi, "" );
 }
 
+function cleanCallback( callback ) {
+	return callback.replace( /[^a-z0-9_]/gi, "" );
+}
+
 const mocks = {
 	contentType: function( req, resp ) {
 		resp.writeHead( 200, {
