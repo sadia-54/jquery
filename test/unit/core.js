@@ -19,6 +19,13 @@ QUnit.test( "Basic requirements", function( assert ) {
 	assert.ok( $, "$" );
 } );
 
+QUnit.test( "camelCase handles non-string input safely", function( assert ) {
+	assert.expect( 3 );
+	assert.strictEqual( jQuery.camelCase( undefined ), undefined, "undefined stays undefined" );
+	assert.strictEqual( jQuery.camelCase( null ), null, "null stays null" );
+	assert.strictEqual( jQuery.camelCase( 42 ), 42, "numbers are returned unchanged" );
+} );
+
 QUnit.test( "jQuery()", function( assert ) {
 
 	var elem, i,
