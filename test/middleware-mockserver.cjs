@@ -27,10 +27,6 @@ function cleanCallback( callback ) {
 	return callback.replace( /[^a-z0-9_]/gi, "" );
 }
 
-function cleanCallback( callback ) {
-	return callback.replace( /[^a-z0-9_]/gi, "" );
-}
-
 const mocks = {
 	contentType: function( req, resp ) {
 		resp.writeHead( 200, {
@@ -168,7 +164,7 @@ const mocks = {
 		const prefix = "multipart/form-data; boundary=--";
 		const contentTypeValue = req.headers[ "content-type" ];
 		resp.writeHead( 200 );
-		if ( ( prefix || "" ).startsWith( prefix ) ) {
+		if ( ( contentTypeValue || "" ).startsWith( prefix ) ) {
 			getMultiPartContent( req ).then( function( { fields = {} } ) {
 				resp.end( `key1 -> ${ fields.key1 }, key2 -> ${ fields.key2 }` );
 			}, next );
