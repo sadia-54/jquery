@@ -82,6 +82,40 @@ function addToPrefiltersOrTransports( structure ) {
 	};
 }
 
+// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
+function addToPrefiltersOrTransports( structure ) {
+
+	// dataTypeExpression is optional and defaults to "*"
+	return function( dataTypeExpression, func ) {
+
+		if ( typeof dataTypeExpression !== "string" ) {
+			func = dataTypeExpression;
+			dataTypeExpression = "*";
+		}
+
+		var dataType,
+			i = 0,
+			dataTypes = dataTypeExpression.toLowerCase().match( rnothtmlwhite ) || [];
+
+		if ( typeof func === "function" ) {
+
+			// For each dataType in the dataTypeExpression
+			while ( ( dataType = dataTypes[ i++ ] ) ) {
+
+				// Prepend if requested
+				if ( dataType[ 0 ] === "+" ) {
+					dataType = dataType.slice( 1 ) || "*";
+					( structure[ dataType ] = structure[ dataType ] || [] ).unshift( func );
+
+				// Otherwise append
+				} else {
+					( structure[ dataType ] = structure[ dataType ] || [] ).push( func );
+				}
+			}
+		}
+	};
+}
+
 // Base inspection function for prefilters and transports
 function inspectPrefiltersOrTransports( structure, options, originalOptions, jqXHR ) {
 

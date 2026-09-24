@@ -8,5 +8,7 @@ function fcamelCase( _all, letter ) {
 
 // Convert dashed to camelCase
 export function camelCase( string ) {
-	return string.replace( rdashAlpha, fcamelCase );
+	return typeof string === "string" ?
+		string.replace( rdashAlpha, fcamelCase ) :
+		string;
 }
